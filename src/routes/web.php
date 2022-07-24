@@ -1,0 +1,20 @@
+<?php
+
+use App\Http\Controllers\ShortUrlController;
+use Illuminate\Support\Facades\Route;
+use ProtoneMedia\LaravelXssProtection\Middleware\XssCleanInput;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+    Route::view('/', 'short-slug-form')->name('index');
+    Route::post('/store', [ShortUrlController::class, 'store'])->middleware(XssCleanInput::class)->name('store');
+    Route::get('/{shortUrl}', [ShortUrlController::class, 'redirect'])->name('shortUrl');
